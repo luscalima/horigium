@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, reactive } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import { PhCaretDown } from "phosphor-vue";
+import { getCoords } from "../composables/geo";
 import AppButton from "../components/AppButton.vue";
 
 const state = reactive({
@@ -16,6 +17,14 @@ const greeting = computed(() => {
       return "boa tarde";
     case state.hours < 24:
       return "boa noite";
+  }
+});
+
+onMounted(async () => {
+  try {
+    const { coords } = await getCoords();
+  } catch (error) {
+    console.error(error);
   }
 });
 </script>
