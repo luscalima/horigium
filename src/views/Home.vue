@@ -23,6 +23,10 @@ const greeting = computed(() => {
   }
 });
 
+function padTime(time: number) {
+  return time.toString().padStart(2, "0");
+}
+
 onMounted(async () => {
   try {
     const { coords } = await getCoords();
@@ -57,7 +61,7 @@ onMounted(async () => {
           <strong class="font-normal">{{ greeting }}, são exatamente</strong>
           <time>
             <span class="tracking-normal text-8xl md:text-[12rem] font-bold">
-              {{ state.hours }}:{{ state.minutes }}
+              {{ padTime(state.hours) }}:{{ padTime(state.minutes) }}
             </span>
           </time>
           <strong class="font-semibold">
