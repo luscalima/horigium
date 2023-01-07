@@ -49,7 +49,7 @@ const ELEMENT_CLASSES = {
 <template>
   <div class="flex flex-col w-full bg-day bg-cover bg-no-repeat bg-center">
     <div
-      class="flex flex-col justify-between h-screen p-6 md:px-24 md:py-12 bg-stone-800 bg-opacity-40"
+      class="flex flex-col justify-between h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
     >
       <blockquote class="flex flex-col md:w-[512px] gap-4 text-stone-100">
         <p class="leading-7 md:text-lg">
