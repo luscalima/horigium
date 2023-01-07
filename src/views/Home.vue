@@ -2,11 +2,14 @@
 import { computed, onMounted, reactive } from "vue";
 import { PhCaretDown } from "phosphor-vue";
 import { getCoords } from "../composables/geo";
+import { getAddress } from "../services/location";
 import AppButton from "../components/AppButton.vue";
 
 const state = reactive({
   hours: new Date().getHours(),
   minutes: new Date().getMinutes(),
+  city: "",
+  countryCode: "",
 });
 
 const greeting = computed(() => {
@@ -23,6 +26,9 @@ const greeting = computed(() => {
 onMounted(async () => {
   try {
     const { coords } = await getCoords();
+    const address = await getAddress(coords);
+    state.city = address?.city;
+    state.countryCode = address?.countryCode;
   } catch (error) {
     console.error(error);
   }
@@ -56,7 +62,9 @@ onMounted(async () => {
           </time>
           <strong class="font-semibold">
             <span>em &nbsp;</span>
-            <address class="inline not-italic">NATAL, BR</address>
+            <address class="inline not-italic">
+              {{ state.city }}, {{ state.countryCode }}
+            </address>
           </strong>
         </div>
         <div>
