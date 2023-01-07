@@ -50,7 +50,7 @@ const state = reactive({
       </div>
     </div>
     <div
-      class="flex px-6 md:px-32 py-16 bg-stone-400 bg-opacity-80 backdrop-blur-sm"
+      class="flex px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
     >
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
         <li
