@@ -1,6 +1,12 @@
 <script lang="ts" setup>
+import { computed, reactive } from "vue";
 import { PhCaretDown } from "phosphor-vue";
 import AppButton from "../components/AppButton.vue";
+
+const state = reactive({
+  hours: new Date().getHours(),
+  minutes: new Date().getMinutes(),
+});
 </script>
 
 <template>
@@ -25,11 +31,11 @@ import AppButton from "../components/AppButton.vue";
           <strong class="font-normal">boa tarde, são exatamente</strong>
           <time>
             <span class="tracking-normal text-8xl md:text-[12rem] font-bold">
-              14:00
+              {{ state.hours }}:{{ state.minutes }}
             </span>
           </time>
           <strong class="font-semibold">
-            <span>in &nbsp;</span>
+            <span>em &nbsp;</span>
             <address class="inline not-italic">NATAL, BR</address>
           </strong>
         </div>
