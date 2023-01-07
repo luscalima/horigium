@@ -7,6 +7,17 @@ const state = reactive({
   hours: new Date().getHours(),
   minutes: new Date().getMinutes(),
 });
+
+const greeting = computed(() => {
+  switch (true) {
+    case state.hours < 12:
+      return "bom dia";
+    case state.hours < 18:
+      return "boa tarde";
+    case state.hours < 24:
+      return "boa noite";
+  }
+});
 </script>
 
 <template>
@@ -28,7 +39,7 @@ const state = reactive({
         <div
           class="flex flex-col tracking-widest md:text-2xl uppercase text-stone-100 drop-shadow"
         >
-          <strong class="font-normal">boa tarde, são exatamente</strong>
+          <strong class="font-normal">{{ greeting }}, são exatamente</strong>
           <time>
             <span class="tracking-normal text-8xl md:text-[12rem] font-bold">
               {{ state.hours }}:{{ state.minutes }}
