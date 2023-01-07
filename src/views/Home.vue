@@ -37,6 +37,13 @@ onMounted(async () => {
     console.error(error);
   }
 });
+
+// Elements tailwind classes sets
+const ELEMENT_CLASSES = {
+  li: "flex md:flex-col justify-between items-center md:items-start",
+  span: "text-xs uppercase tracking-widest text-stone-700",
+  strong: "text-xl md:text-4xl text-stone-800",
+};
 </script>
 
 <template>
@@ -85,39 +92,21 @@ onMounted(async () => {
       class="flex px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
     >
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <li
-          class="flex md:flex-col justify-between items-center md:items-start"
-        >
-          <span class="text-xs uppercase tracking-widest text-stone-700">
-            timezone atual
-          </span>
-          <strong class="text-xl md:text-4xl text-stone-800">
-            America/Sao_Paulo
-          </strong>
+        <li :class="ELEMENT_CLASSES.li">
+          <span :class="ELEMENT_CLASSES.span"> timezone atual </span>
+          <strong :class="ELEMENT_CLASSES.strong"> America/Sao_Paulo </strong>
         </li>
-        <li
-          class="flex md:flex-col justify-between items-center md:items-start"
-        >
-          <span class="text-xs uppercase tracking-widest text-stone-700">
-            dia do ano
-          </span>
-          <strong class="text-xl md:text-4xl text-stone-800">295</strong>
+        <li :class="ELEMENT_CLASSES.li">
+          <span :class="ELEMENT_CLASSES.span"> dia do ano </span>
+          <strong :class="ELEMENT_CLASSES.strong">295</strong>
         </li>
-        <li
-          class="flex md:flex-col justify-between items-center md:items-start"
-        >
-          <span class="text-xs uppercase tracking-widest text-stone-700">
-            dia da semana
-          </span>
-          <strong class="text-xl md:text-4xl text-stone-800">5</strong>
+        <li :class="ELEMENT_CLASSES.li">
+          <span :class="ELEMENT_CLASSES.span"> dia da semana </span>
+          <strong :class="ELEMENT_CLASSES.strong">5</strong>
         </li>
-        <li
-          class="flex md:flex-col justify-between items-center md:items-start"
-        >
-          <span class="text-xs uppercase tracking-widest text-stone-700">
-            número da semana
-          </span>
-          <strong class="text-xl md:text-4xl text-stone-800">42</strong>
+        <li :class="ELEMENT_CLASSES.li">
+          <span :class="ELEMENT_CLASSES.span"> número da semana </span>
+          <strong :class="ELEMENT_CLASSES.strong">42</strong>
         </li>
       </ul>
     </div>
