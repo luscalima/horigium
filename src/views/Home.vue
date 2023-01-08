@@ -23,6 +23,20 @@ const greeting = computed(() => {
   }
 });
 
+const timeInfos = computed(() => {
+  const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1_000;
+  const MILLISECONDS_IN_WEEK = 7 * MILLISECONDS_IN_DAY;
+  const firstDay = new Date(new Date().getFullYear(), 0, 1);
+  const diff = Date.now() - firstDay.getTime();
+
+  return {
+    timezone: new Intl.DateTimeFormat().resolvedOptions().timeZone,
+    dayOfWeek: new Date().getDay() + 1,
+    dayOfYear: Math.ceil(diff / MILLISECONDS_IN_DAY),
+    weekOfYear: Math.ceil(diff / MILLISECONDS_IN_WEEK),
+  };
+});
+
 function padTime(time: number) {
   return time.toString().padStart(2, "0");
 }
@@ -94,19 +108,27 @@ const ELEMENT_CLASSES = {
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
         <li :class="ELEMENT_CLASSES.li">
           <span :class="ELEMENT_CLASSES.span"> timezone atual </span>
-          <strong :class="ELEMENT_CLASSES.strong"> America/Sao_Paulo </strong>
+          <strong :class="ELEMENT_CLASSES.strong">
+            {{ timeInfos.timezone }}
+          </strong>
         </li>
         <li :class="ELEMENT_CLASSES.li">
           <span :class="ELEMENT_CLASSES.span"> dia do ano </span>
-          <strong :class="ELEMENT_CLASSES.strong">295</strong>
+          <strong :class="ELEMENT_CLASSES.strong">
+            {{ timeInfos.dayOfYear }}
+          </strong>
         </li>
         <li :class="ELEMENT_CLASSES.li">
           <span :class="ELEMENT_CLASSES.span"> dia da semana </span>
-          <strong :class="ELEMENT_CLASSES.strong">5</strong>
+          <strong :class="ELEMENT_CLASSES.strong">
+            {{ timeInfos.dayOfWeek }}
+          </strong>
         </li>
         <li :class="ELEMENT_CLASSES.li">
           <span :class="ELEMENT_CLASSES.span"> número da semana </span>
-          <strong :class="ELEMENT_CLASSES.strong">42</strong>
+          <strong :class="ELEMENT_CLASSES.strong">
+            {{ timeInfos.weekOfYear }}
+          </strong>
         </li>
       </ul>
     </div>
