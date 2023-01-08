@@ -3,6 +3,7 @@ import { computed, onMounted, reactive } from "vue";
 import { PhCaretDown, PhMoon, PhSun } from "phosphor-vue";
 import { getCoords } from "../composables/geo";
 import { getAddress } from "../services/location";
+import { getQuote } from "../services/quote";
 import AppButton from "../components/AppButton.vue";
 
 const state = reactive({
@@ -10,6 +11,10 @@ const state = reactive({
   minutes: new Date().getMinutes(),
   city: "",
   countryCode: "",
+  quote: {
+    content: "",
+    author: "",
+  },
 });
 
 const greeting = computed(() => {
@@ -47,6 +52,13 @@ function padTime(time: number) {
 
 onMounted(async () => {
   try {
+    const quote = await getQuote();
+    state.quote.content = quote.content;
+    state.quote.author = quote.author;
+  } catch (error) {
+    console.error(error);
+  }
+  try {
     const { coords } = await getCoords();
     const address = await getAddress(coords);
     state.city = address?.city;
@@ -70,12 +82,9 @@ const ELEMENT_CLASSES = {
       class="flex flex-col justify-between h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
     >
       <blockquote class="flex flex-col md:w-[512px] gap-4 text-stone-100">
-        <p class="leading-7 md:text-lg">
-          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo,
-          fugit dolorum ullam ea sapiente doloremque incidunt vel optio!"
-        </p>
+        <p class="leading-7 md:text-lg">"{{ state.quote.content }}"</p>
         <footer>
-          <span class="font-medium md:text-lg">Jane Doe</span>
+          <span class="font-medium md:text-lg">{{ state.quote.author }}</span>
         </footer>
       </blockquote>
 
