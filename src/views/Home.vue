@@ -15,6 +15,7 @@ const state = reactive({
     content: "",
     author: "",
   },
+  showCurtain: false,
 });
 
 const greeting = computed(() => {
@@ -27,11 +28,9 @@ const greeting = computed(() => {
       return "boa noite";
   }
 });
-
 const greetingIcon = computed(() => {
   return state.hours > 4 && state.hours < 19 ? PhSun : PhMoon;
 });
-
 const timeInfos = computed(() => {
   const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1_000;
   const MILLISECONDS_IN_WEEK = 7 * MILLISECONDS_IN_DAY;
@@ -48,6 +47,10 @@ const timeInfos = computed(() => {
 
 function padTime(time: number) {
   return time.toString().padStart(2, "0");
+}
+
+function handleToggleCurtain() {
+  state.showCurtain = !state.showCurtain;
 }
 
 onMounted(async () => {
@@ -77,9 +80,12 @@ const ELEMENT_CLASSES = {
 </script>
 
 <template>
-  <div class="flex flex-col w-full bg-day bg-cover bg-no-repeat bg-center">
+  <div
+    class="flex flex-col w-full bg-day bg-cover bg-no-repeat bg-center transition-all duration-300"
+    :class="{ '-translate-y-64': state.showCurtain }"
+  >
     <div
-      class="flex flex-col justify-between h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
+      class="flex flex-col justify-between min-h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
     >
       <blockquote class="flex flex-col md:w-[512px] gap-4 text-stone-100">
         <p class="leading-7 md:text-lg">"{{ state.quote.content }}"</p>
@@ -109,17 +115,20 @@ const ELEMENT_CLASSES = {
           </strong>
         </div>
         <div>
-          <AppButton>
-            mais
+          <AppButton @click="handleToggleCurtain" class="w-44">
+            {{ state.showCurtain ? "menos" : "mais" }}
             <template #icon>
-              <PhCaretDown />
+              <PhCaretDown
+                class="trasition duration-300"
+                :class="{ '-rotate-180': state.showCurtain }"
+              />
             </template>
           </AppButton>
         </div>
       </div>
     </div>
     <div
-      class="flex px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
+      class="flex h-64 px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
     >
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
         <li :class="ELEMENT_CLASSES.li">
