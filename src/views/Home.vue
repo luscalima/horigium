@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, reactive } from "vue";
-import { PhCaretDown } from "phosphor-vue";
+import { PhCaretDown, PhMoon, PhSun } from "phosphor-vue";
 import { getCoords } from "../composables/geo";
 import { getAddress } from "../services/location";
 import AppButton from "../components/AppButton.vue";
@@ -21,6 +21,10 @@ const greeting = computed(() => {
     case state.hours < 24:
       return "boa noite";
   }
+});
+
+const greetingIcon = computed(() => {
+  return state.hours > 4 && state.hours < 19 ? PhSun : PhMoon;
 });
 
 const timeInfos = computed(() => {
@@ -79,7 +83,10 @@ const ELEMENT_CLASSES = {
         <div
           class="flex flex-col tracking-widest md:text-2xl uppercase text-stone-100 drop-shadow"
         >
-          <strong class="font-normal">{{ greeting }}, são exatamente</strong>
+          <strong class="flex items-center gap-2 font-normal">
+            <component :is="greetingIcon" weight="fill" :size="32" />
+            {{ greeting }}, são exatamente
+          </strong>
           <time>
             <span class="tracking-normal text-8xl md:text-[12rem] font-bold">
               {{ padTime(state.hours) }}:{{ padTime(state.minutes) }}
