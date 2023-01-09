@@ -82,7 +82,7 @@ const ELEMENT_CLASSES = {
 <template>
   <div
     class="flex flex-col w-full bg-day bg-cover bg-no-repeat bg-center transition-all duration-300"
-    :class="{ '-translate-y-64': state.showCurtain }"
+    :class="{ '-translate-y-72 md:-translate-y-64': state.showCurtain }"
   >
     <div
       class="flex flex-col justify-between min-h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
@@ -128,7 +128,7 @@ const ELEMENT_CLASSES = {
       </div>
     </div>
     <div
-      class="flex h-64 px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
+      class="flex h-72 md:h-64 px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
     >
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
         <li :class="ELEMENT_CLASSES.li">
