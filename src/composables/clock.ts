@@ -7,10 +7,10 @@ interface Clock {
 
 const today = new Date();
 
-const state = reactive({
+const state = reactive<Clock>({
   hours: today.getHours(),
   minutes: today.getMinutes(),
-} as Clock);
+});
 
 /**
  * A strategy that would provide greater precision could be adopted, but as the
