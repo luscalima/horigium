@@ -2,13 +2,12 @@
 import { computed, onMounted, reactive } from "vue";
 import { PhArrowsClockwise, PhCaretDown, PhMoon, PhSun } from "phosphor-vue";
 import { getCoords } from "../composables/geo";
+import clock, { dispatchClock } from "../composables/clock";
 import { getAddress } from "../services/location";
 import { getQuote } from "../services/quote";
 import AppButton from "../components/AppButton.vue";
 
 const state = reactive({
-  hours: new Date().getHours(),
-  minutes: new Date().getMinutes(),
   city: "",
   countryCode: "",
   quote: {
@@ -20,16 +19,16 @@ const state = reactive({
 });
 const greeting = computed(() => {
   switch (true) {
-    case state.hours < 12:
+    case clock.hours < 12:
       return "bom dia";
-    case state.hours < 18:
+    case clock.hours < 18:
       return "boa tarde";
-    case state.hours < 24:
+    case clock.hours < 24:
       return "boa noite";
   }
 });
 const greetingIcon = computed(() => {
-  return state.hours > 4 && state.hours < 19 ? PhSun : PhMoon;
+  return clock.hours > 4 && clock.hours < 19 ? PhSun : PhMoon;
 });
 const timeInfos = computed(() => {
   const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1_000;
@@ -70,6 +69,7 @@ async function requestQuote() {
 }
 
 onMounted(async () => {
+  dispatchClock();
   requestQuote();
   try {
     const { coords } = await getCoords();
@@ -124,7 +124,7 @@ const ELEMENT_CLASSES = {
           </strong>
           <time>
             <span class="tracking-normal text-8xl md:text-[12rem] font-bold">
-              {{ padTime(state.hours) }}:{{ padTime(state.minutes) }}
+              {{ padTime(clock.hours) }}:{{ padTime(clock.minutes) }}
             </span>
           </time>
           <strong class="font-semibold">
