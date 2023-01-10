@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, reactive } from "vue";
-import { PhCaretDown, PhMoon, PhSun } from "phosphor-vue";
+import { PhArrowsClockwise, PhCaretDown, PhMoon, PhSun } from "phosphor-vue";
 import { getCoords } from "../composables/geo";
 import { getAddress } from "../services/location";
 import { getQuote } from "../services/quote";
@@ -16,6 +16,7 @@ const state = reactive({
     author: "",
   },
   showCurtain: false,
+  isLoadingQuote: false,
 });
 
 const greeting = computed(() => {
@@ -53,7 +54,13 @@ function handleToggleCurtain() {
   state.showCurtain = !state.showCurtain;
 }
 
-onMounted(async () => {
+async function handleRequestQuote() {
+  state.isLoadingQuote = true;
+  await requestQuote();
+  state.isLoadingQuote = false;
+}
+
+async function requestQuote() {
   try {
     const quote = await getQuote();
     state.quote.content = quote.content;
@@ -61,6 +68,10 @@ onMounted(async () => {
   } catch (error) {
     console.error(error);
   }
+}
+
+onMounted(async () => {
+  requestQuote();
   try {
     const { coords } = await getCoords();
     const address = await getAddress(coords);
@@ -87,12 +98,22 @@ const ELEMENT_CLASSES = {
     <div
       class="flex flex-col justify-between min-h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
     >
-      <blockquote class="flex flex-col md:w-[512px] gap-4 text-stone-100">
-        <p class="leading-7 md:text-lg">"{{ state.quote.content }}"</p>
-        <footer>
-          <span class="font-medium md:text-lg">{{ state.quote.author }}</span>
-        </footer>
-      </blockquote>
+      <div class="flex justify-between gap-2 md:w-[512px]">
+        <blockquote class="flex flex-col gap-4 text-stone-100">
+          <p class="leading-7 md:text-lg">"{{ state.quote.content }}"</p>
+          <footer>
+            <span class="font-medium md:text-lg">{{ state.quote.author }}</span>
+          </footer>
+        </blockquote>
+        <div>
+          <button class="text-stone-100" @click="handleRequestQuote">
+            <PhArrowsClockwise
+              size="32"
+              :class="{ 'animate-spin': state.isLoadingQuote }"
+            />
+          </button>
+        </div>
+      </div>
 
       <div class="flex flex-col gap-8 mb-8">
         <div
