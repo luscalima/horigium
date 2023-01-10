@@ -18,7 +18,6 @@ const state = reactive({
   showCurtain: false,
   isLoadingQuote: false,
 });
-
 const greeting = computed(() => {
   switch (true) {
     case state.hours < 12:
