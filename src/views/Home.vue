@@ -27,8 +27,11 @@ const greeting = computed(() => {
       return "boa noite";
   }
 });
+const isDay = computed(() => {
+  return clock.hours > 4 && clock.hours < 19;
+});
 const greetingIcon = computed(() => {
-  return clock.hours > 4 && clock.hours < 19 ? PhSun : PhMoon;
+  return isDay.value ? PhSun : PhMoon;
 });
 const timeInfos = computed(() => {
   const MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1_000;
@@ -43,6 +46,16 @@ const timeInfos = computed(() => {
     weekOfYear: Math.ceil(diff / MILLISECONDS_IN_WEEK),
   };
 });
+// Elements tailwind classes sets
+const elementClasses = computed(() => ({
+  li: "flex md:flex-col justify-between items-center md:items-start",
+  span: `text-xs uppercase tracking-widest ${
+    isDay.value ? "text-stone-700" : "text-stone-100"
+  }`,
+  strong: `text-xl md:text-4xl ${
+    isDay.value ? "text-stone-800" : "text-stone-100"
+  }`,
+}));
 
 function padTime(time: number) {
   return time.toString().padStart(2, "0");
@@ -80,19 +93,15 @@ onMounted(async () => {
     console.error(error);
   }
 });
-
-// Elements tailwind classes sets
-const ELEMENT_CLASSES = {
-  li: "flex md:flex-col justify-between items-center md:items-start",
-  span: "text-xs uppercase tracking-widest text-stone-700",
-  strong: "text-xl md:text-4xl text-stone-800",
-};
 </script>
 
 <template>
   <div
-    class="flex flex-col w-full bg-day bg-cover bg-no-repeat bg-center transition-all duration-300"
-    :class="{ '-translate-y-72 md:-translate-y-64': state.showCurtain }"
+    class="flex flex-col w-full bg-cover bg-no-repeat bg-center transition-all duration-300"
+    :class="[
+      isDay ? 'bg-day' : 'bg-night',
+      { '-translate-y-72 md:-translate-y-64': state.showCurtain },
+    ]"
   >
     <div
       class="flex flex-col justify-between min-h-screen p-6 md:px-32 md:py-12 bg-stone-800 bg-opacity-40"
@@ -148,30 +157,31 @@ const ELEMENT_CLASSES = {
       </div>
     </div>
     <div
-      class="flex h-72 md:h-64 px-6 md:px-32 py-16 bg-stone-300 bg-opacity-80 backdrop-blur-lg"
+      class="flex h-72 md:h-64 px-6 md:px-32 py-16 bg-opacity-80 backdrop-blur-lg"
+      :class="[isDay ? 'bg-stone-300' : 'bg-slate-800']"
     >
       <ul class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <li :class="ELEMENT_CLASSES.li">
-          <span :class="ELEMENT_CLASSES.span"> timezone atual </span>
-          <strong :class="ELEMENT_CLASSES.strong">
+        <li :class="elementClasses.li">
+          <span :class="elementClasses.span"> timezone atual </span>
+          <strong :class="elementClasses.strong">
             {{ timeInfos.timezone }}
           </strong>
         </li>
-        <li :class="ELEMENT_CLASSES.li">
-          <span :class="ELEMENT_CLASSES.span"> dia do ano </span>
-          <strong :class="ELEMENT_CLASSES.strong">
+        <li :class="elementClasses.li">
+          <span :class="elementClasses.span"> dia do ano </span>
+          <strong :class="elementClasses.strong">
             {{ timeInfos.dayOfYear }}
           </strong>
         </li>
-        <li :class="ELEMENT_CLASSES.li">
-          <span :class="ELEMENT_CLASSES.span"> dia da semana </span>
-          <strong :class="ELEMENT_CLASSES.strong">
+        <li :class="elementClasses.li">
+          <span :class="elementClasses.span"> dia da semana </span>
+          <strong :class="elementClasses.strong">
             {{ timeInfos.dayOfWeek }}
           </strong>
         </li>
-        <li :class="ELEMENT_CLASSES.li">
-          <span :class="ELEMENT_CLASSES.span"> número da semana </span>
-          <strong :class="ELEMENT_CLASSES.strong">
+        <li :class="elementClasses.li">
+          <span :class="elementClasses.span"> número da semana </span>
+          <strong :class="elementClasses.strong">
             {{ timeInfos.weekOfYear }}
           </strong>
         </li>
