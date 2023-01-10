@@ -430,6 +430,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/test-utils@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "@vue/test-utils@npm:2.2.7"
+  peerDependencies:
+    vue: ^3.0.1
+  checksum: b6a0daadcca58fd94b14e5dd66e1d8dbf23557ff698eaa3dac97c068d81301239ab347d303c96b619ce60f21eb597400e1ee8363765b0944bdc34ee3d73b155a
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -1101,6 +1110,7 @@ __metadata:
   resolution: "horigium@workspace:."
   dependencies:
     "@vitejs/plugin-vue": ^4.0.0
+    "@vue/test-utils": ^2.2.7
     autoprefixer: ^10.4.13
     phosphor-vue: ^4.4.0
     postcss: ^8.4.20
