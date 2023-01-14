@@ -4,7 +4,7 @@ describe("clock", () => {
   it("should start with the current time", () => {
     // The number inside the assertions comes from jest's global configuration.
     // This is necessary as the reactive state of the composable is loaded before
-    // the tests are started and the global setting allows the time to be spoofed
+    // the tests are started and the global setting allows the time to be faked
     // before the composable runs
     expect(state.hours).toBe(8);
     expect(state.minutes).toBe(30);
