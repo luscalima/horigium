@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import AppButton from "../src/components/AppButton.vue";
+import AppButton from "../../src/components/AppButton.vue";
 
 describe("AppButton", () => {
   it("When passing content to the default slot, it should appear as the button's text", () => {
