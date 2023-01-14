@@ -11,4 +11,8 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest",
   },
   moduleFileExtensions: ["vue", "js", "json", "jsx", "ts", "tsx", "node"],
+  fakeTimers: {
+    enableGlobally: true,
+    now: new Date(2023, 0, 1, 8, 30).getTime(),
+  },
 };
