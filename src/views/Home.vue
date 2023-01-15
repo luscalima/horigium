@@ -114,7 +114,11 @@ onMounted(async () => {
           </footer>
         </blockquote>
         <div>
-          <button class="text-stone-100" @click="handleRequestQuote">
+          <button
+            class="text-stone-100"
+            @click="handleRequestQuote"
+            title="load another quote"
+          >
             <PhArrowsClockwise
               size="32"
               :class="{ 'animate-spin': state.isLoadingQuote }"
@@ -144,7 +148,11 @@ onMounted(async () => {
           </strong>
         </div>
         <div>
-          <AppButton @click="handleToggleCurtain" class="w-44">
+          <AppButton
+            @click="handleToggleCurtain"
+            class="w-44"
+            title="load more informations"
+          >
             {{ state.showCurtain ? "menos" : "mais" }}
             <template #icon>
               <PhCaretDown
