@@ -16,6 +16,10 @@ Acesse o deploy da aplicação [aqui](https://horigium.vercel.app/)
 
 ![App night mode](./screenshots/night.png)
 
+> ⚠️ Devido a imprecisão das coordenadas geográficas fornecidas
+> pelo navegador, é possível que a cidade mostrada pela aplicação seja
+> diferente da real cidade corrente do usuário.
+
 ## Tecnologias
 
 - **Cliente:** Vue e TailwindCSS
