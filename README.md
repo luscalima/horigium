@@ -23,7 +23,7 @@ Acesse o deploy da aplicação [aqui](https://horigium.vercel.app/)
 ## Tecnologias
 
 - **Cliente:** Vue e TailwindCSS
-- **APIs:** Here API (geodeconficação)
+- **APIs:** Here API (geodecodificação) e Quotable.io (frases)
 - **Testes:** Vue Test Util e Jest
 
 ## Executar localmente
@@ -53,6 +53,12 @@ Configure a variável de ambiente da [Here API](https://developer.here.com/docum
 ```
 
 Inicie o servidor
+
+```bash
+  yarn dev
+```
+
+Executar testes
 
 ```bash
   yarn dev
