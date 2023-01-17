@@ -61,7 +61,7 @@ Inicie o servidor
 Executar testes
 
 ```bash
-  yarn dev
+  yarn test
 ```
 
 ## Aprendizado
